@@ -1,12 +1,16 @@
+````markdown
 # URL Shortener
 
 ## 1. Problem
+
 Design a URL shortening service for a mid-sized B2B company.
+
 Internal teams and external partners can shorten URLs through an API and track usage through analytics.
 
 ---
 
 ## 2. Requirements
+
 ### Functional
 
 - Shorten long URLs
@@ -31,7 +35,9 @@ Internal teams and external partners can shorten URLs through an API and track u
 ---
 
 ## 3. Scale Characteristics
+
 The system is **heavily read-oriented**.
+
 URL creation is relatively infrequent, while redirects can be significantly higher.
 
 Therefore:
@@ -96,31 +102,36 @@ flowchart TD
 ---
 
 ## 6. Critical Flows
-    
-          Create Short URL
-   
-               Client
-                  ↓
-                API Gateway
-                  ↓
-                Load Balancer
-                  ↓
-                Application
-                  ↓
-                Generate ID / Validate Alias
-                  ↓
-                Primary DB
-                  ↓
-                Return Short URL
 
+### Create Short URL
+
+```text
+Client
+  ↓
+API Gateway
+  ↓
+Load Balancer
+  ↓
+Application
+  ↓
+Generate ID / Validate Alias
+  ↓
+Primary DB
+  ↓
+Return Short URL
+```
 
 Custom aliases rely on a database uniqueness constraint rather than:
-            Check alias → If available → Insert
-because that approach is vulnerable to concurrent requests.
 
+```text
+Check alias → If available → Insert
+```
+
+because that approach is vulnerable to concurrent requests.
 
 ### Redirect
 
+```text
 Client
   ↓
 API Gateway
@@ -132,10 +143,13 @@ Redis
   ├── Hit → Return original URL
   │
   └── Miss → Read Replica → Populate Cache
+```
 
+This is the critical low-latency path.
 
-    => This is the critical low-latency path.
 ### Analytics
+
+```text
 Redirect
    ↓
 Message Queue
@@ -145,8 +159,9 @@ Analytics Pipeline
 Data Warehouse
    ↓
 Reporting / AI-ML
-    
-    => Analytics processing does not block the redirect response.
+```
+
+Analytics processing does not block the redirect response.
 
 ---
 
