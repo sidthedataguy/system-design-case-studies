@@ -1,4 +1,4 @@
-````markdown
+
 # URL Shortener
 
 ## 1. Problem
@@ -50,8 +50,7 @@ Therefore:
 
 ## 4. Architecture
 
-
-
+```mermaid
 flowchart TD
     Client[Client / Partner API]
 
@@ -192,4 +191,9 @@ Analytics processing does not block the redirect response.
 * Asynchronous side-effect processing
 * Separate critical and non-critical request paths
 
+
+
+I converted your original architecture diagram into **Mermaid**, while keeping the same major components and flows shown in your document. :contentReference[oaicite:1]{index=1}
+
+**Next:** you can paste this into GitHub and preview it. Then we'll do a quick review of Day 1 before moving to Day 2.
 ```
