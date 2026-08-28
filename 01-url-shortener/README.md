@@ -51,6 +51,7 @@ Therefore:
 ## 4. Architecture
 
 ```mermaid
+
 flowchart TD
     Client[Client / Partner API]
 
